@@ -13,4 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//= require sb/bootstrap
+//= require sb/bootstrap.min
+//= require sb/jquery-1.11.0
+//= require sb/sb-admin-2
