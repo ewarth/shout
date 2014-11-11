@@ -1,0 +1,56 @@
+<p><%= link_to "Find Friends", :controller => :friendships, :action => :index %></p>
+
+<h2>Following:</h2>
+<ul>
+
+  <% if @user.friendships.length == 0 %>
+      <p>Not following anyone</p>
+  <% else %>
+
+  <% for friendship in @user.friendships %>
+      <%if friendship.approved %>
+        <li>
+            <%=h friendship.friend.email %>
+            <%= link_to "Stop following", :controller => :friendships, :action => :destroy, :friend_id => friendship.id %>
+            <a href="">TODO: add link to block</a>
+        </li>
+    <% end %>
+  <% end %>
+
+  <% end %>
+</ul>
+
+<h2>Pending Follow Requests:</h2>
+<ul>
+
+  <% if @user.friendships.length == 0 %>
+      <p>No pending requests</p>
+  <% else %>
+
+      <% for friendship in @user.friendships %>
+          <%if !friendship.approved %>
+              <li>
+                <%=h friendship.friend.first_name %> <%=h friendship.friend.last_name %>
+                <%= link_to "Delete request", :controller => :friendships, :action => :destroy, :friend_id => friendship.id %>
+                  <a href="">TODO: add link to block</a>
+              </li>
+        <% end %>
+      <% end %>
+
+  <% end %>
+</ul>
+
+
+<h2>Followed by Users:</h2>
+<ul>
+  <% for inverse_friendship in @user.inverse_friendships %>
+    <li><%=h inverse_friendship.user.first_name %> <%=h inverse_friendship.user.last_name %>
+      <%if !inverse_friendship.approved %>
+          <%= link_to "Approve Follower", :controller => :friendships, :action => :approve, :friend_id => inverse_friendship.id %>
+      <% else %>
+          <%= link_to "Remove Follower", :controller => :friendships, :action => :disapprove, :friend_id => inverse_friendship.id %>
+      <% end %>
+      <a href="">TODO: add link to follow if not already</a>
+    </li>
+  <% end %>
+</ul>
