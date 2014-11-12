@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  get 'posts/create'
+
+  get 'posts/edit'
+
+  get 'posts/share'
+
+  get 'posts/favorite'
+
+  get 'posts/report'
+
+  get 'posts/delete'
+
   root 'home#index'
 
   get 'friendships/add' => 'friendships#create'
