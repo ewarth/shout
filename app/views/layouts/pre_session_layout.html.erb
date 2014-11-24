@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shout</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <%= render 'layouts/user_widget' %>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0;">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="index.html">Shout</a>
+  </div>
+  <!-- /.navbar-header -->
+<div class="nav navbar-top-links navbar-right"></div>
+  <ul class="nav navbar-top-links navbar-right">
+    <li>
+      <%= link_to '<i class="fa fa-user"></i> Sign In'.html_safe, new_user_session_path %>
+    </li>
+    <li>
+      <%= link_to '<i class="fa fa-pencil"></i> Sign Up'.html_safe, new_user_registration_path %>
+    </li>
+  </ul>
+  <!-- /.navbar-top-links -->
+  <div id="side-menu"></div>
+</nav>
+
+
+
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+
+<%=yield %>
+
+
+</body>
+</html>

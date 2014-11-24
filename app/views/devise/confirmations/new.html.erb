@@ -1,0 +1,21 @@
+
+
+
+<div class="col-sm-6 col-md-4 col-md-offset-4">
+  <div class="login-panel panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Resend confirmation instructions</h3>
+    </div>
+    <div class="panel-body">
+      <p>Start shouting now.</p>
+      <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+          <%= devise_error_messages! %>
+
+          <div class="form-group">
+            <%= f.email_field :email, autofocus: true, :placeholder => "Email", :class => "form-control" %></div>
+
+          <div class="form-group"><%= f.submit "Resend confirmation instructions",  :class => "btn btn-lg btn-success btn-block"  %></div>
+      <% end %>
+    </div>
+  </div>
+</div>
