@@ -1,2 +1,14 @@
-<h1>Posts#delete</h1>
-<p>Find me in app/views/posts/delete.html.erb</p>
+<h1>Past Shouts</h1>
+<% if @posts.length == 0 %>
+    <p>You've been quiet. Why don't you <%= link_to "shout something", :controller => :posts, :action => :new%>?</p>
+<% else %>
+    <% for post in @posts%>
+        <li>
+          <%=h post.post_text %>
+          <%= link_to "I didn't say that!", :controller => :posts, :action => :delete , :post_id => post.id %>
+          <%= link_to "I changed my mind!", :controller => :posts, :action => :edit, :post_id => post.id %>
+        </li>
+    <% end %>
+
+<% end %>
+

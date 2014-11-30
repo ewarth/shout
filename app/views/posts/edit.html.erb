@@ -1,2 +1,12 @@
-<h1>Posts#edit</h1>
-<p>Find me in app/views/posts/edit.html.erb</p>
+<h1>Change what you said</h1>
+<p>
+  Original Shout: <%=h @post.post_text %>
+  <br/>
+  <br/>
+  <%=form_for :post, :url=>{:action=>"edit"} do |f|%>
+      <%=f.text_field :post_text %><br/>
+      <%=f.hidden_field :id %>
+      <%=submit_tag "Shout it!"%>
+  <%end%>
+
+</p>

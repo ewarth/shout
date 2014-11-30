@@ -1,2 +1,6 @@
 <h1>What's on your mind?</h1>
-<%= text_area(:post_text) %>
+<%=form_for :post, :url=>{:action=>"create"} do |f|%>
+    <%=f.text_field :post_text %><br/>
+    <%=submit_tag "Shout it!"%>
+<%end%>
+

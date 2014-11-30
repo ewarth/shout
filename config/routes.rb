@@ -1,17 +1,15 @@
 Rails.application.routes.draw do
-  get 'posts/create'
-
-  get 'posts/edit'
-
-  get 'posts/share'
-
-  get 'posts/favorite'
-
-  get 'posts/report'
-
-  get 'posts/delete'
-
   root 'home#index'
+
+  get 'posts/new' => 'posts#new'
+  post 'posts/create' => 'posts#create'
+  get 'posts/edit' => 'posts#edit'
+  post 'posts/edit' => 'posts#change'
+  get 'posts/share' => 'posts#share'
+  get 'posts/favorite' => 'posts#favorite'
+  get 'posts/report' => 'posts#report'
+  get 'posts/delete' => 'posts#delete'
+  get 'posts/show' => 'posts#show'
 
   get 'friendships/add' => 'friendships#create'
   get 'friendships/delete' => 'friendships#destroy'

@@ -16,8 +16,23 @@ class FriendshipsController < ApplicationController
     end
   end
 
-  def show
+  def show #TODO optimize the search and sort
     @user = current_user
+    @friendships = current_user.friendships
+    @shouts = Array.new
+    @my_shouts = Post.where(:user_id => current_user.id)
+    if @my_shouts != nil && @my_shouts.length != 0
+      @shouts.push(*@my_shouts)
+    end
+    for friendship in @friendships
+      if friendship.approved
+        @temp_shouts = Post.where(:user_id => friendship.friend.id, :deactivated => false)
+        if @temp_shouts != nil && @temp_shouts.length != 0
+          @shouts.push(*@temp_shouts)
+        end
+      end
+    end
+    @shouts.sort! { |a,b| b.updated_at <=> a.updated_at }
   end
 
   def approve

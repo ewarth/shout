@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 20141112010316) do
   create_table "posts", force: true do |t|
     t.integer  "user_id"
     t.text     "post_text"
+    t.integer  "favorites",   default: 0
+    t.boolean  "deactivated", default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
