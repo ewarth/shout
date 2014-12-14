@@ -18,6 +18,9 @@ class FriendshipsController < ApplicationController
 
   def show #TODO optimize the search and sort
     @user = current_user
+    if current_user == nil
+      redirect_to root_url
+    end
     @friendships = current_user.friendships
     @shouts = Array.new
     @my_shouts = Post.where(:user_id => current_user.id)

@@ -41,13 +41,17 @@ class PostsController < ApplicationController
   end
 
   def share
+    @oldpost = Post.find(params[:post][:postId])
+    @user = User.find(params[:post][:userId])
+    @text = @user.firstname + " " + @user.lastname + " shouted \"" +oldpost.post_text + "\""
+    @post = Post.new(:user_id =>current_user.id, :post_text => text, :reshouted => true)
+    redirect_to :controller => :friendships, :action => :show
   end
 
   def favorite
     @post = Post.find(params[:post_id])
     @fav_by = current_user
-    id = current_user.id
-    @faved = Favorite.find(:user_id => id)
+    @faved = Favorite.where(user_id: current_user.id)
     if(@faved==nil)
       if @post.update(:favorites => @post.favorites + 1)
         flash[:notice] = "Glad you liked it"
