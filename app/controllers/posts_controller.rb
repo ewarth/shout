@@ -41,19 +41,39 @@ class PostsController < ApplicationController
   end
 
   def share
+    @oldpost = Post.find(params[:post][:postId])
+    @user = User.find(params[:post][:userId])
+    @text = @user.firstname + " " + @user.lastname + " shouted \"" +oldpost.post_text + "\""
+    @post = Post.new(:user_id =>current_user.id, :post_text => text, :reshouted => true)
+    redirect_to :controller => :friendships, :action => :show
   end
 
   def favorite
     @post = Post.find(params[:post_id])
-    if @post.update(:favorites => @post.favorites + 1)
-      flash[:notice] = "Glad you liked it"
+    @faved = Favorite.where(user_id: current_user.id, post_id: @post.id).first
+    if(@faved == nil)
+      if @post.update(:favorites => @post.favorites + 1)
+        Favorite.create(:user_id => current_user.id, :post_id => @post.id)
+        flash[:notice] = "Glad you liked it"
+      else
+        flash[:notice] = "Unable to favorite"
+      end
     else
-      flash[:notice] = "Unable to favorite"
+      flash[:notice] = "Already favorited"
     end
     redirect_to :controller => :friendships, :action => :show
   end
 
   def report
+    @post = Post.find(params[:post_id])
+    @reported = Report.where(user_id: current_user.id, post_id: @post.id).first
+    if(@reported == nil)
+      Report.create(:user_id => current_user.id, :post_id => @post.id)
+      flash[:notice] = "Sorry you're upset. We'll look into it"
+    else
+      flash[:notice] = "Already reported"
+    end
+    redirect_to :controller => :friendships, :action => :show
   end
 
   def delete

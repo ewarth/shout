@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get 'friendships/followers' => 'friendships#followers'
   get 'friendships/followed_by' => 'friendships#followed_by'
 
+
   devise_for :users, :controllers => { registrations: 'registrations' }
 
   # The priority is based upon order of creation: first created -> highest priority.

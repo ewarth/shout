@@ -1,39 +1,59 @@
-<h2>Following:</h2>
-<ul>
+<div class="row">
+  <div class="col-lg-3">
+    <%= render 'partials/userInfo' %>
+  </div>
+  <div class="col-lg-9">
+    <h3>Following:</h3>
 
-  <% if @friendships.length == 0 %>
-      <p>Not following anyone</p>
-  <% else %>
+      <% if @friendships.length == 0 %>
+          <p>Not following anyone</p>
+      <% else %>
 
-      <% for friendship in @friendships %>
-          <%if friendship.approved %>
-              <li>
-                <%=h friendship.friend.email %>
-                <%= link_to "Stop following", :controller => :friendships, :action => :destroy, :friend_id => friendship.id %>
-                <a href="">TODO: add link to block</a>
-              </li>
+          <% for friendship in @friendships %>
+              <%if friendship.approved %>
+                  <div class="col-xs-4">
+                    <div class="panel panel-success">
+                      <div class="panel-heading">
+                        <%=h friendship.friend.email %>
+                      </div>
+                      <div class="panel-body">
+                        <%=h friendship.friend.first_name %> <%=h friendship.friend.last_name %>:
+                        <%=h link_to raw('<i class="fa fa-times"></i> Stop Following'), :controller => :friendships, :action => :destroy, :friend_id => friendship.id %>
+                      </div>
+                    </div>
+                  </div>
+              <% end %>
           <% end %>
+
       <% end %>
+    <div class="row"></div>
+    <hr />
+    <h3>Pending Follow Requests:</h3>
 
-  <% end %>
-</ul>
+      <% if @friendships.length == 0 %>
+          <p>No pending requests</p>
+      <% else %>
 
-<h2>Pending Follow Requests:</h2>
-<ul>
+          <% for friendship in @friendships %>
+              <%if !friendship.approved %>
+                <div class="col-xs-4">
+                  <div class="panel panel-danger">
+                    <div class="panel-heading">
+                      <%=h friendship.friend.email %>
+                    </div>
+                    <div class="panel-body">
+                      <%=h friendship.friend.first_name %> <%=h friendship.friend.last_name %>:
+                      <%=h link_to raw('<i class="fa fa-times"></i> Delete request'), :controller => :friendships, :action => :destroy, :friend_id => friendship.id  do %>
 
-  <% if @friendships.length == 0 %>
-      <p>No pending requests</p>
-  <% else %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
 
-      <% for friendship in @friendships %>
-          <%if !friendship.approved %>
-              <li>
-                <%=h friendship.friend.first_name %> <%=h friendship.friend.last_name %>
-                <%= link_to "Delete request", :controller => :friendships, :action => :destroy, :friend_id => friendship.id %>
-                <a href="">TODO: add link to block</a>
-              </li>
+              <% end %>
           <% end %>
-      <% end %>
 
-  <% end %>
-</ul>
+      <% end %>
+  </div>
+</div>
+

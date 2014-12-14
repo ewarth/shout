@@ -5,6 +5,7 @@ class CreatePosts < ActiveRecord::Migration
       t.text :post_text
       t.integer :favorites, default: 0
       t.boolean :deactivated, default: false
+      t.boolean :reshouted, default: false
       t.timestamps
     end
   end
