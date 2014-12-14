@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   get 'friendships/index' => 'friendships#index'
   get 'friendships/approve' => 'friendships#approve'
   get 'friendships/disapprove' => 'friendships#disapprove'
+  get 'friendships/followers' => 'friendships#followers'
+  get 'friendships/followed_by' => 'friendships#followed_by'
 
   devise_for :users, :controllers => { registrations: 'registrations' }
 

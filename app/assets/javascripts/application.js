@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require sb/bootstrap
-//= require sb/bootstrap.min
-//= require sb/jquery-1.11.0
-//= require sb/sb-admin-2
+//= require sb/bootstrap.js
+//= require sb/bootstrap.min.js
+//= require sb/jquery-1.11.0.js
+//= require sb/sb-admin-2.js

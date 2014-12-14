@@ -1,0 +1,39 @@
+<h2>Following:</h2>
+<ul>
+
+  <% if @friendships.length == 0 %>
+      <p>Not following anyone</p>
+  <% else %>
+
+      <% for friendship in @friendships %>
+          <%if friendship.approved %>
+              <li>
+                <%=h friendship.friend.email %>
+                <%= link_to "Stop following", :controller => :friendships, :action => :destroy, :friend_id => friendship.id %>
+                <a href="">TODO: add link to block</a>
+              </li>
+          <% end %>
+      <% end %>
+
+  <% end %>
+</ul>
+
+<h2>Pending Follow Requests:</h2>
+<ul>
+
+  <% if @user.friendships.length == 0 %>
+      <p>No pending requests</p>
+  <% else %>
+
+      <% for friendship in @user.friendships %>
+          <%if !friendship.approved %>
+              <li>
+                <%=h friendship.friend.first_name %> <%=h friendship.friend.last_name %>
+                <%= link_to "Delete request", :controller => :friendships, :action => :destroy, :friend_id => friendship.id %>
+                <a href="">TODO: add link to block</a>
+              </li>
+          <% end %>
+      <% end %>
+
+  <% end %>
+</ul>

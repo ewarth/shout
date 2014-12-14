@@ -60,4 +60,20 @@ class FriendshipsController < ApplicationController
     flash[:notice] ="Stopped following."
     redirect_to root_url
   end
+
+  def followers
+    @friendships = current_user.friendships
+    for friendship in @friendships
+      if friendship.approved
+        @temp_shouts = Post.where(:user_id => friendship.friend.id, :deactivated => false)
+        if @temp_shouts != nil && @temp_shouts.length != 0
+          @shouts.push(*@temp_shouts)
+        end
+      end
+    end
+  end
+
+  def followed_by
+
+  end
 end
