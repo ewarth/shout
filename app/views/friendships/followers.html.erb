@@ -21,11 +21,11 @@
 <h2>Pending Follow Requests:</h2>
 <ul>
 
-  <% if @user.friendships.length == 0 %>
+  <% if @friendships.length == 0 %>
       <p>No pending requests</p>
   <% else %>
 
-      <% for friendship in @user.friendships %>
+      <% for friendship in @friendships %>
           <%if !friendship.approved %>
               <li>
                 <%=h friendship.friend.first_name %> <%=h friendship.friend.last_name %>

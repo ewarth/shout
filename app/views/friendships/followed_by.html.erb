@@ -1,6 +1,6 @@
 <h2>Followed by Users:</h2>
 <ul>
-  <% for inverse_friendship in @user.inverse_friendships %>
+  <% for inverse_friendship in @inverse_friendships %>
       <li><%=h inverse_friendship.user.first_name %> <%=h inverse_friendship.user.last_name %>
         <%if !inverse_friendship.approved %>
             <%= link_to "Approve Follower", :controller => :friendships, :action => :approve, :friend_id => inverse_friendship.id %>

@@ -5,8 +5,8 @@
         Test
       </div>
         <div class="panel-footer">
-          <%= link_to :controller => :friendships, :action => :followers do%>Followers:<%= @friendships.length%><%end%><br />
-          <%= link_to :controller => :friendships, :action => :followed_by do%>Followed By:<%= @friendships.length%><%end%><br />
+          <%= link_to :controller => :friendships, :action => :followers do%>Following:<%= @friendships.length%><%end%><br />
+          <%= link_to :controller => :friendships, :action => :followed_by do%>Followed By:<%= @inverse_friendships.length%><%end%><br />
           <span>Posts: <%= @shouts.length %></span>
           <p><%= link_to "Find Friends", :controller => :friendships, :action => :index %></p>
           <div class="clearfix"></div>
@@ -39,7 +39,10 @@
                 <li>
                   <% @shoutter =  User.find(shout.user_id) %>
                   At <%=h shout.updated_at %>, <%=h @shoutter.first_name%> <%=h @shoutter.last_name%> shouted
-                  <%= link_to "*", :controller => :posts, :action => :favorite , :post_id => shout.id %>
+                  <% if shout.user_id != @user.id %>
+                    <%= link_to raw("<i class=\"fa fa-star\"></i>"), :controller => :posts, :action => :favorite , :post_id => shout.id %>
+                    <%= link_to raw("<i class=\"fa fa-flag\"></i>"), :controller => :posts, :action => :report , :post_id => shout.id %>
+                <% end %>
                   <br/>
                   <%=h shout.post_text %>
                   <br/>
