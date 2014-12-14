@@ -19,6 +19,7 @@ class FriendshipsController < ApplicationController
   def show #TODO optimize the search and sort
     @user = current_user
     @friendships = current_user.friendships
+    @inverse_friendships = current_user.inverse_friendships
     @shouts = Array.new
     @my_shouts = Post.where(:user_id => current_user.id)
     if @my_shouts != nil && @my_shouts.length != 0
@@ -74,6 +75,12 @@ class FriendshipsController < ApplicationController
   end
 
   def followed_by
+    @user = current_user
+    if current_user == nil
+      redirect_to root_url
+    end
+    @inverse_friendships = current_user.inverse_friendships
+
 
   end
 end

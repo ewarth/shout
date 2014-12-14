@@ -5,8 +5,8 @@
         Test
       </div>
         <div class="panel-footer">
-          <%= link_to :controller => :friendships, :action => :followers do%>Followers:<%= @friendships.length%><%end%><br />
-          <%= link_to :controller => :friendships, :action => :followed_by do%>Followed By:<%= @friendships.length%><%end%><br />
+          <%= link_to :controller => :friendships, :action => :followers do%>Following:<%= @friendships.length%><%end%><br />
+          <%= link_to :controller => :friendships, :action => :followed_by do%>Followed By:<%= @inverse_friendships.length%><%end%><br />
           <span>Posts: <%= @shouts.length %></span>
           <p><%= link_to "Find Friends", :controller => :friendships, :action => :index %></p>
           <div class="clearfix"></div>
