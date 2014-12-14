@@ -8,8 +8,13 @@ class PostsController < ApplicationController
       flash[:notice] = "We heard your shout"
       redirect_to :controller => :friendships, :action => :show
     else
-      flash[:notice] = "Shout louder"
-      redirect_to :controller => :posts, :action => :new
+      @errors = @post.errors
+      if @errors != nil
+        flash[:notice] = @errors[:post_text].first
+      else
+        flash[:notice] = "Shout louder"
+      end
+      redirect_to :controller => :friendships, :action => :show
     end
   end
 
