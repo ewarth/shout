@@ -66,6 +66,7 @@ class FriendshipsController < ApplicationController
   end
 
   def followers
+    @shouts=Array.new
     @friendships = current_user.friendships
     for friendship in @friendships
       if friendship.approved

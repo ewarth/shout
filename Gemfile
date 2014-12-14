@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'obfuscate_id', :git => 'https://github.com/namick/obfuscate_id.git'
+
 gem 'sqlite3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
