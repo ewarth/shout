@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141112010316) do
+ActiveRecord::Schema.define(version: 201411130150000) do
+
+  create_table "favorites", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "friendships", force: true do |t|
     t.integer  "user_id"
@@ -26,6 +33,13 @@ ActiveRecord::Schema.define(version: 20141112010316) do
     t.text     "post_text"
     t.integer  "favorites",   default: 0
     t.boolean  "deactivated", default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "reports", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "post_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

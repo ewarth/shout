@@ -45,10 +45,17 @@ class PostsController < ApplicationController
 
   def favorite
     @post = Post.find(params[:post_id])
-    if @post.update(:favorites => @post.favorites + 1)
-      flash[:notice] = "Glad you liked it"
+    @fav_by = current_user
+    id = current_user.id
+    @faved = Favorite.find(:user_id => id)
+    if(@faved==nil)
+      if @post.update(:favorites => @post.favorites + 1)
+        flash[:notice] = "Glad you liked it"
+      else
+        flash[:notice] = "Unable to favorite"
+      end
     else
-      flash[:notice] = "Unable to favorite"
+      flash[:notice] = "Already favorited"
     end
     redirect_to :controller => :friendships, :action => :show
   end
