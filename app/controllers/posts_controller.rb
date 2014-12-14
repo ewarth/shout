@@ -46,10 +46,20 @@ class PostsController < ApplicationController
   end
 
   def share
-    @oldpost = Post.find(params[:post][:postId])
-    @user = User.find(params[:post][:userId])
-    @text = @user.firstname + " " + @user.lastname + " shouted \"" +oldpost.post_text + "\""
-    @post = Post.new(:user_id =>current_user.id, :post_text => text, :reshouted => true)
+    @old = Post.find(params[:post_id])
+    @user = User.find_by_id(@old.user_id)
+    @text = @user.first_name + " " + @user.last_name + " shouted \"" + @old.post_text + "\""
+    @post = Post.new(:user_id => current_user.id, :post_text => @text, :reshouted => true)
+    if @post.save
+      flash[:notice] = "We heard your shout"
+    else
+      @errors = @post.errors
+      if @errors != nil
+        flash[:notice] = @errors[:post_text].first
+      else
+        flash[:notice] = "Shout louder"
+      end
+    end
     redirect_to :controller => :friendships, :action => :show
   end
 
