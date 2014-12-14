@@ -11,9 +11,9 @@
  * file per style scope.
  *
  *= require font-awesome.css.scss.erb
- *= require font-awesome.min
+ *= require font-awesome.min.css
  *= require sb/bootstrap.css
- *= require sb/bootstrap.min
- *= require sb/sb-admin-2
+ *= require sb/bootstrap.min.css
+ *= require sb/sb-admin-2.css
  *= require shout.css
  */
