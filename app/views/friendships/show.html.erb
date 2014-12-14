@@ -28,6 +28,9 @@
                   <% @shoutter =  User.find_by_id(shout.user_id) %>
                   At <%=h shout.updated_at %>, <%=h @shoutter.first_name%> <%=h @shoutter.last_name%> shouted
                   <% if shout.user_id != @user.id %>
+                    <%= link_to raw("<i class=\"fa volume-up\"></i>"), :controller => :posts, :action => :share , :post_id => shout %>
+                    <%= link_to raw("<i class=\"fa fa-star\"></i>"), :controller => :posts, :action => :favorite , :post_id => shout %>
+                    <%= link_to raw("<i class=\"fa fa-flag\"></i>"), :controller => :posts, :action => :report , :post_id => shout %>
                     <%= link_to raw("<i class=\"fa fa-star\"></i>"), :controller => :posts, :action => :favorite , :post_id => shout %>
                     <%= link_to raw("<i class=\"fa fa-flag\"></i>"), :controller => :posts, :action => :report , :post_id => shout %>
                 <% end %>

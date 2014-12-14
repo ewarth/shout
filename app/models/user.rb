@@ -1,5 +1,11 @@
 class User < ActiveRecord::Base
   obfuscate_id
+
+  validates :email, presence: true
+  validates :encrypted_password, presence: true
+  validates :first_name, presence: true, format: {with:  /\A[[:alnum:].]+\z/, message: "Only alphanumerics and \".\" allowed"}
+  validates :last_name, presence: true, format: {with:  /\A[[:alnum:].]+\z/, message: "Only alphanumerics and \".\" allowed"}
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
