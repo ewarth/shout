@@ -2,13 +2,14 @@
   <div class="col-md-3">
     <div class="panel panel-primary">
       <div class="panel-heading">
-        Test
+       <%=  @user.email %>
       </div>
         <div class="panel-footer">
-          <%= link_to :controller => :friendships, :action => :followers do%>Following:<%= @friendships.length%><%end%><br />
-          <%= link_to :controller => :friendships, :action => :followed_by do%>Followed By:<%= @inverse_friendships.length%><%end%><br />
-          <span>Posts: <%= @shouts.length %></span>
-          <p><%= link_to "Find Friends", :controller => :friendships, :action => :index %></p>
+          <div class="col-lg-6"><%= link_to :controller => :friendships, :action => :followers do%>Following:<%= @friendships.length%><%end%><br /></div>
+          <div class="col-lg-6"><%= link_to :controller => :friendships, :action => :followed_by do%>Followed By:<%= @inverse_friendships.length%><%end%><br /></div>
+         <div class="row"></div>
+          <div class="col-lg-6"><span>Posts: <%= @shouts.length %></span></div>
+          <div class="col-lg-6"><p><%= link_to "Find Friends", :controller => :friendships, :action => :index %></p></div>
           <div class="clearfix"></div>
         </div>
     </div>
