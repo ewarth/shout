@@ -3,6 +3,26 @@ class AdminController < ApplicationController
 
   def index
   end
+
+  def new
+
+  end
+
+  def create
+    @new_admin = User.new({:first_name=> params[:user][:first_name], :last_name=>params[:user][:last_name], :email=>params[:user][:email], :password=>params[:user][:password], :admin=>"true"})
+
+    if @new_admin.save
+      flash[:success] = "Admin created! Welcome to the shout team!!"
+      redirect_to :controller => :admin, :action => :index
+    else
+      @errors = @new_admin.errors
+
+        flash[:notice] = "Unable to create admin. The form has errors."
+
+      redirect_to :controller => :admin, :action => :new
+    end
+  end
+
   def lock_unlock_account
 
   end
@@ -13,7 +33,7 @@ class AdminController < ApplicationController
 
 
   def lock
-    @lock_user = User.find_by_id(params[:id])
+    @lock_user = User.find(User.deobfuscate_id(params[:user][:id]))
 
     @value = @lock_user.locked
     if @lock_user.locked

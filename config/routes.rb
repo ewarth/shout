@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get 'admin/lock_unlock_account'
   post 'admin/lock_unlock_account' => 'admin#lock'
 
+  get 'admin/new' => 'admin#new'
+  post 'admin/new' => 'admin#create'
   root 'home#index'
 
   get 'posts/new' => 'posts#new'

@@ -17,7 +17,7 @@
         <td><%=u.last_name %></td>
         <td><%=u.email %></td>
         <td>
-          <%= form_for u, :url => { :action => "lock" }, :html => {method: :post} do |f|  %>
+          <%= form_for :user, :url => { :action => "lock" }, :html => {method: :post} do |f|  %>
               <%= f.hidden_field  :id  %>
               <%= if u.locked =false
                     f.submit "Unlock", class: "btn btn-primary"
