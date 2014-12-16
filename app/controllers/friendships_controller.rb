@@ -43,7 +43,11 @@ class FriendshipsController < ApplicationController
   end
 
   def approve
-    @friendship = @Friendship.find(params[:friend_id])
+    @friendship = Friendship.find(params[:friend_id])
+    if @freindship == nil
+      flash[:error] = "Unable to approve follower."
+      redirect_to root_url
+    end
     @friendship.update_attribute(:approved, true)
     if @friendship.save
       flash[:success] = "Approved follower."
