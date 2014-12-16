@@ -1,9 +1,12 @@
 <div class="row">
-  <div class="col-lg-3">
+  <div class="col-lg-3" style="margin-top: 20px;">
     <%=h render 'partials/userInfo' %>
   </div>
   <div class="col-lg-9">
-    <h3>Followed by Users:</h3>
+    <h3 style="padding-left: 15px;">Followed by Users:</h3>
+    <% if @inverse_friendships.length == 0 %>
+        <p style="padding-left: 15px;">You're not being followed.</p>
+    <% else %>
       <% for inverse_friendship in @inverse_friendships %>
         <div class="col-xs-4">
           <div class="panel panel-success">
@@ -13,14 +16,15 @@
             <div class="panel-body">
                 <%=h inverse_friendship.user.first_name %> <%=h inverse_friendship.user.last_name %>
                     <%if !inverse_friendship.approved %>
-                        <%= link_to "Approve Follower", :controller => :friendships, :action => :approve, :friend_id => inverse_friendship.id %>
+                        <%= link_to raw('<i class="fa fa-check-circle"></i> Approve Follower'), :controller => :friendships, :action => :approve, :friend_id => inverse_friendship %>
                      <% else %>
-                        <%= link_to "Remove Follower", :controller => :friendships, :action => :disapprove, :friend_id => inverse_friendship.id %>
+                        <%=h link_to raw('<i class="fa fa-times"></i> Remove Follower'), :controller => :friendships, :action => :disapprove, :friend_id => inverse_friendship %>
                      <% end %>
             </div>
           </div>
         </div>
       <% end %>
+    <%end%>
   </div>
 </div>
 

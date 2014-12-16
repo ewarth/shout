@@ -2,15 +2,15 @@
 <html>
 <head>
   <title>Shout</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-  <%= render 'layouts/user_widget' %>
+  <%=h stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%=h javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%=h csrf_meta_tags %>
+  <%=h render 'layouts/user_widget' %>
 </head>
 <body>
 
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0;">
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 5px;">
   <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
       <span class="sr-only">Toggle navigation</span>
@@ -18,7 +18,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="index.html">Shout</a>
+    <a class="navbar-brand" href="index.html" style="padding: 0px;"><img src="/shout.png" alt="Shout" style="height: 50px;"/></a>
   </div>
   <!-- /.navbar-header -->
 <div class="nav navbar-top-links navbar-right"></div>
@@ -34,11 +34,7 @@
   <div id="side-menu"></div>
 </nav>
 
-
-
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
-
+<%= render "partials/flash_messages", flash: flash %>
 <%=yield %>
 
 

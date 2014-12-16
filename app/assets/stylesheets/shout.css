@@ -14,7 +14,6 @@ body{
 
 #new-post{
 
-    padding: 5px;
     height: 135px;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
@@ -30,4 +29,25 @@ body{
 
 hr{
     border-color: #000000;
+}
+
+.close{
+    padding-left: 10px !important;
+
+}
+
+.alert{
+    float: right;
+}
+
+.chat li{
+    border-bottom: none;
+}
+
+.chat li:nth-child(odd){
+    background: rgb(240, 240, 240);
+}
+
+textarea {
+    resize: none;
 }

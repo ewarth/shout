@@ -1,14 +1,29 @@
-<h1>Past Shouts</h1>
-<% if @posts.length == 0 %>
-    <p>You've been quiet. Why don't you <%= link_to "shout something", :controller => :posts, :action => :new%>?</p>
-<% else %>
-    <% for post in @posts%>
-        <li>
-          <%=h post.post_text %>
-          <%= link_to "I didn't say that!", :controller => :posts, :action => :delete , :post_id => post.id %>
-          <%= link_to "I changed my mind!", :controller => :posts, :action => :edit, :post_id => post.id %>
-        </li>
-    <% end %>
+<div class="row">
+  <div class="col-lg-3" style="margin-top: 20px;">
+    <%=h render 'partials/userInfo' %>
+  </div>
+  <div class="col-lg-9">
+    <h3>Past Posts:</h3>
+    <div id="new-post">
+      <% if @posts.length == 0 %>
+          <p style="padding-left: 15px;">You've been quiet. Why don't you <%= link_to "shout something", :controller => :friendships, :action => :show%>?</p>
+      <% else %>
+          <ul class="chat">
+          <% for post in @posts%>
+              <li>
+                <strong><%=h @user.first_name%> <%=h @user.last_name%></strong>
+                <small class="text-muted pull-right">
+                  <i class="fa fa-clock-o fa-fw"></i> <%=h time_ago_in_words(post.updated_at) %></small><br/>
+                <%=h post.post_text %>
+                <br/>
+                  <%= link_to "I didn't say that!", :controller => :posts, :action => :delete , :post_id => post %> |
+                  <%= link_to "I changed my mind!", :controller => :posts, :action => :edit, :post_id => post %>
 
-<% end %>
+              </li>
+          <% end %>
+          </ul>
+      <% end %>
+    </div>
+  </div>
+</div>
 

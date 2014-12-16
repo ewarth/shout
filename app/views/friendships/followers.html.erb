@@ -1,12 +1,12 @@
 <div class="row">
-  <div class="col-lg-3">
-    <%= render 'partials/userInfo' %>
+  <div class="col-lg-3" style="margin-top: 20px;">
+    <%=h render 'partials/userInfo' %>
   </div>
   <div class="col-lg-9">
-    <h3>Following:</h3>
+    <h3 style="padding-left: 15px;">Following:</h3>
 
       <% if @friendships.length == 0 %>
-          <p>Not following anyone</p>
+          <p style="padding-left: 15px;">Not following anyone</p>
       <% else %>
 
           <% for friendship in @friendships %>
@@ -18,7 +18,7 @@
                       </div>
                       <div class="panel-body">
                         <%=h friendship.friend.first_name %> <%=h friendship.friend.last_name %>:
-                        <%=h link_to raw('<i class="fa fa-times"></i> Stop Following'), :controller => :friendships, :action => :destroy, :friend_id => friendship.id %>
+                        <%= link_to raw('<i class="fa fa-times"></i> Stop Following'), :controller => :friendships, :action => :destroy, :friend => friendship %>
                       </div>
                     </div>
                   </div>
@@ -27,11 +27,11 @@
 
       <% end %>
     <div class="row"></div>
-    <hr />
-    <h3>Pending Follow Requests:</h3>
+
+    <h3 style="padding-left: 15px;">Pending Follow Requests:</h3>
 
       <% if @friendships.length == 0 %>
-          <p>No pending requests</p>
+          <p style="padding-left: 15px;">No pending requests</p>
       <% else %>
 
           <% for friendship in @friendships %>
@@ -43,9 +43,8 @@
                     </div>
                     <div class="panel-body">
                       <%=h friendship.friend.first_name %> <%=h friendship.friend.last_name %>:
-                      <%=h link_to raw('<i class="fa fa-times"></i> Delete request'), :controller => :friendships, :action => :destroy, :friend_id => friendship.id  do %>
+                      <%= link_to raw('<i class="fa fa-times"></i> Delete request'), :controller => :friendships, :action => :destroy, :friend_id => friendship%>
 
-                      <% end %>
                     </div>
                   </div>
                 </div>
