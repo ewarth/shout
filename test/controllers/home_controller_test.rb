@@ -13,12 +13,14 @@ class HomeControllerTest < ActionController::TestCase
    login_user
     get :index
     assert_redirected_to(controller: "friendships", action: "show")
+
   end
 
 
   def login_user
     @request.env["devise.mapping"] = Devise.mappings[:user]
     user = User.find_by_id(1)
+    assert(user.email == 'test1@test.com')
     sign_in user
   end
 end
