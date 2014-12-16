@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'admin/index'
+  get 'admin/lock_unlock_account'
+  post 'admin/lock_unlock_account' => 'admin#lock'
+
   root 'home#index'
 
   get 'posts/new' => 'posts#new'

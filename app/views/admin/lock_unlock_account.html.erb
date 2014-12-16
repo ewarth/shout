@@ -1,0 +1,34 @@
+<h1>Lock/Unlock Accounts</h1>
+<p>Select a user to unlock</p>
+<table class = "table" data-toggle="table" data-url="data1.json" data-cache="false" data-height="299">
+  <thead>
+
+  <tr>
+    <th data-field="firstName">First Name</th>
+    <th data-field="lastName">Last Name</th>
+    <th data-field="email">Email</th>
+    <th data-field="lockUnlock">Lock/Unlock</th>
+  </tr>
+  </thead>
+  <tbody>
+  <%for u in @users %>
+      <tr>
+        <td><%=u.first_name %></td>
+        <td><%=u.last_name %></td>
+        <td><%=u.email %></td>
+        <td>
+          <%= form_for u, :url => { :action => "lock" }, :html => {method: :post} do |f|  %>
+              <%= f.hidden_field  :id  %>
+              <%= if u.locked =false
+                    f.submit "Unlock", class: "btn btn-primary"
+                  else
+                    f.submit "Lock", class: "btn btn-primary"
+                  end %>
+          <%end%>
+
+
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
