@@ -43,9 +43,8 @@
                     </div>
                     <div class="panel-body">
                       <%=h friendship.friend.first_name %> <%=h friendship.friend.last_name %>:
-                      <%= link_to raw('<i class="fa fa-times"></i> Delete request'), :controller => :friendships, :action => :destroy, :friend_id => friendship.id  do %>
+                      <%= link_to raw('<i class="fa fa-times"></i> Delete request'), :controller => :friendships, :action => :destroy, :friend_id => friendship.id %>
 
-                      <% end %>
                     </div>
                   </div>
                 </div>
