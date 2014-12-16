@@ -16,6 +16,11 @@
           </div>
       <%end%>
     </div>
+
+    <% if @user.is_admin %>
+        <%= render 'partials/reported' %>
+    <% end %>
+
     <div id="news-feed">
       <%= render 'partials/posts' %>
     </div>

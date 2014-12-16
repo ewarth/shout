@@ -1,0 +1,26 @@
+<h3>REPORTED SHOUTS</h3>
+<ul class="chat">
+  <% if @reported.length == 0 %>
+      <p>No reports.</p>
+  <% else %>
+      <% for report in @reports %>
+          <li>
+            <% @shoutter =  User.find_by_id(report.user_id) %>
+              <strong><%=h @shoutter.first_name%> <%=h @shoutter.last_name%></strong>
+            <small class="text-muted pull-right">
+              <i class="fa fa-clock-o fa-fw"></i> <%=h time_ago_in_words(shout.updated_at) %></small>
+            <% if !@shoutter.locked %>
+                <%= link_to "Lock", :controller => :admin, :action => :lock , :user => @shoutter %>
+            <% end %>
+            <br/>
+            <%=h shout.post_text %>
+            <br/>
+
+          </li>
+
+      <% end %>
+  <% end %>
+
+</ul>
+
+<h3>Regular Shouts</h3>

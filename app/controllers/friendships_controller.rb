@@ -54,12 +54,22 @@ class FriendshipsController < ApplicationController
       end
 
       @shouts.sort! { |a,b| b.updated_at <=> a.updated_at }
+
+      if @user.is_admin
+        @reports = Array.new
+        @reported = Report.all
+        for report in @reported
+          @reports.push(*Post.find(report.post_id))
+        end
+        @reports.sort! { |a,b| b.updated_at <=> a.updated_at }
+
+      end
     end
   end
 
   def approve
     @friendship = Friendship.find(params[:friend_id])
-    if @freindship == nil
+    if @friendship == nil
       flash[:error] = "Unable to approve follower."
     else
       @friendship.update_attribute(:approved, true)
