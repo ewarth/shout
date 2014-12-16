@@ -16,8 +16,8 @@
                   <i class="fa fa-clock-o fa-fw"></i> <%=h time_ago_in_words(post.updated_at) %></small><br/>
                 <%=h post.post_text %>
                 <br/>
-                  <%= link_to "I didn't say that!", :controller => :posts, :action => :delete , :post_id => post.id %> |
-                  <%= link_to "I changed my mind!", :controller => :posts, :action => :edit, :post_id => post.id %>
+                  <%= link_to "I didn't say that!", :controller => :posts, :action => :delete , :post_id => post %> |
+                  <%= link_to "I changed my mind!", :controller => :posts, :action => :edit, :post_id => post %>
 
               </li>
           <% end %>

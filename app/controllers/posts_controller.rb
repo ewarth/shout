@@ -32,7 +32,7 @@ class PostsController < ApplicationController
 
   def change
     @user = current_user
-    @post = Post.find(params[:post][:id])
+    @post = Post.find_by_id(params[:post][:id])
     if current_user.id == @post.user_id
       if @post.update(:post_text => params[:post][:post_text])
         flash[:notice] = "We heard your shout"

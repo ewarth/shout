@@ -16,9 +16,9 @@
             <div class="panel-body">
                 <%=h inverse_friendship.user.first_name %> <%=h inverse_friendship.user.last_name %>
                     <%if !inverse_friendship.approved %>
-                        <%= link_to raw('<i class="fa fa-check-circle"></i> Approve Follower'), :controller => :friendships, :action => :approve, :friend_id => inverse_friendship.id %>
+                        <%= link_to raw('<i class="fa fa-check-circle"></i> Approve Follower'), :controller => :friendships, :action => :approve, :friend_id => inverse_friendship %>
                      <% else %>
-                        <%=h link_to raw('<i class="fa fa-times"></i> Remove Follower'), :controller => :friendships, :action => :disapprove, :friend_id => inverse_friendship.id %>
+                        <%=h link_to raw('<i class="fa fa-times"></i> Remove Follower'), :controller => :friendships, :action => :disapprove, :friend_id => inverse_friendship %>
                      <% end %>
             </div>
           </div>

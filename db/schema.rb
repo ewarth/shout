@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 201411130150000) do
     t.text     "post_text"
     t.integer  "favorites",   default: 0
     t.boolean  "deactivated", default: false
+    t.boolean  "reshouted",   default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
