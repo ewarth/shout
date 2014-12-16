@@ -1,48 +1,23 @@
 <div class="row">
   <div class="col-md-3">
-    <%= render 'partials/userInfo' %>
+    <%=h render 'partials/userInfo' %>
   </div>
   <div class="col-md-6" id="feed">
 
     <div id="new-post">
       <%=form_for :post, :url=>{:controller => :posts, :action=>"create"} do |f|%>
           <div class="form-group">
-            <%=f.text_area :post_text, :class => "form-control" %><br/>
+            <%=f.text_area :post_text, :placeholder => "Enter your SHOUT here!", :class => "form-control" %><br/>
+            <%=submit_tag "Shout it!", :class => "btn btn-md btn-success pull-right" %>
+            <br/>
           </div>
           <div class="form-group">
-            <%=submit_tag "Shout it!", :class => "btn btn-md btn-success pull-right" %>
+
           </div>
       <%end%>
     </div>
     <div id="news-feed">
-      <hr />
-      <%= link_to "See what you've shouted recently", :controller => :posts, :action => :show%>
-      <br/>
-
-      <ul>
-        <% if @shouts.length == 0 %>
-            <p>No one you're following has shoutted anything</p>
-        <% else %>
-            <% for shout in @shouts %>
-                <li>
-                  <% @shoutter =  User.find_by_id(shout.user_id) %>
-                  At <%=h shout.updated_at %>, <%=h @shoutter.first_name%> <%=h @shoutter.last_name%> shouted
-                  <% if shout.user_id != @user.id %>
-                    <%= link_to raw("<i class=\"fa fa-volume-up\"></i>"), :controller => :posts, :action => :share , :post_id => shout %>
-                    <%= link_to raw("<i class=\"fa fa-star\"></i>"), :controller => :posts, :action => :favorite , :post_id => shout %>
-                    <%= link_to raw("<i class=\"fa fa-flag\"></i>"), :controller => :posts, :action => :report , :post_id => shout %>
-                <% end %>
-                  <br/>
-                  <%=h shout.post_text %>
-                  <br/>
-
-                </li>
-
-            <% end %>
-        <% end %>
-
-      </ul>
-
+      <%= render 'partials/posts' %>
     </div>
   </div>
 </div>

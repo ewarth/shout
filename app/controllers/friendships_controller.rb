@@ -3,12 +3,15 @@ class FriendshipsController < ApplicationController
   def index
     @user = current_user
     @users = User.all
+    @friendships = current_user.friendships
+    @inverse_friendships = current_user.inverse_friendships
+    @shouts = Post.where(:user_id => current_user.id)
   end
 
   def create
     @friendship = current_user.friendships.build(:friend_id => params[:friend_id])
     if @friendship.save
-      flash[:notice] = "Requested to follow."
+      flash[:success] = "Requested to follow."
       redirect_to root_url
     else
       flash[:error] = "Unable to follow."
@@ -43,7 +46,7 @@ class FriendshipsController < ApplicationController
     @friendship = current_user.inverse_friendships.find(params[:friend_id])
     @friendship.update_attribute(:approved, true)
     if @friendship.save
-      flash[:notice] = "Approved follower."
+      flash[:success] = "Approved follower."
       redirect_to root_url
     else
       flash[:error] = "Unable to approve follower."

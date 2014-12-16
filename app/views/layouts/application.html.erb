@@ -2,17 +2,17 @@
 <html>
 <head>
   <title>Shout</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%=h stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%=h javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-  <%= csrf_meta_tags %>
-  <%= render 'layouts/user_widget' %>
+  <%=h csrf_meta_tags %>
+  <%=h render 'layouts/user_widget' %>
 </head>
 <body>
 
   <!-- Navigation -->
-  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0;">
+  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 5px;">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
         <span class="sr-only">Toggle navigation</span>
@@ -20,38 +20,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Shout</a>
+      <a class="navbar-brand" href="../friendships/show" style="padding: 0px;"><img src="/shout.png" alt="Shout" style="height: 50px;"/></a>
     </div>
     <!-- /.navbar-header -->
 
     <ul class="nav navbar-top-links navbar-right">
-      <!-- /.dropdown -->
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-          <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
-        </a>
-        <ul class="dropdown-menu dropdown-alerts">
-          <li>
-            <a href="#">
-              <div>
-                <i class="fa fa-comment fa-fw"></i> Re-Shouted!
-                <span class="pull-right text-muted small">4 minutes ago</span>
-              </div>
-            </a>
-          </li>
-          <li class="divider"></li>
-          <li>
-            <a href="#">
-              <div>
-                <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                <span class="pull-right text-muted small">12 minutes ago</span>
-              </div>
-            </a>
-          </li>
-        </ul>
-        <!-- /.dropdown-alerts -->
-      </li>
-      <!-- /.dropdown -->
       <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
           <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -76,11 +49,10 @@
     <div id="side-menu"></div>
   </nav>
 
+  <div class="row"></div>
+  <%= render "partials/flash_messages", flash: flash %>
 
-<p class="notice"><%= notice %></p>
-
-
-<%=yield %>
+  <%=yield %>
 
 
 </body>

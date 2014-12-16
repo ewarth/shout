@@ -1,0 +1,25 @@
+<ul class="chat">
+  <% if @shouts.length == 0 %>
+      <p>No Shouts.</p>
+  <% else %>
+      <% for shout in @shouts %>
+          <li>
+            <% @shoutter =  User.find_by_id(shout.user_id) %>
+              <strong><%=h @shoutter.first_name%> <%=h @shoutter.last_name%></strong>
+            <small class="text-muted pull-right">
+              <i class="fa fa-clock-o fa-fw"></i> <%=h time_ago_in_words(shout.updated_at) %></small>
+            <% if shout.user_id != @user.id %>
+                <%= link_to raw("<i class=\"fa fa-volume-up\"></i>"), :controller => :posts, :action => :share , :post_id => shout %>
+                <%= link_to raw("<i class=\"fa fa-star\"></i>"), :controller => :posts, :action => :favorite , :post_id => shout %>
+                <%= link_to raw("<i class=\"fa fa-flag\"></i>"), :controller => :posts, :action => :report , :post_id => shout %>
+            <% end %>
+            <br/>
+            <%=h shout.post_text %>
+            <br/>
+
+          </li>
+
+      <% end %>
+  <% end %>
+
+</ul>

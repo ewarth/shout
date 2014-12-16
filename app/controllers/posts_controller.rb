@@ -5,12 +5,12 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(:user_id => current_user.id, :post_text => params[:post][:post_text])
     if @post.save
-      flash[:notice] = "We heard your shout"
+      flash[:success] = "We heard your shout"
       redirect_to :controller => :friendships, :action => :show
     else
       @errors = @post.errors
       if @errors != nil
-        flash[:notice] = @errors[:post_text].first
+        flash[:error] = @errors[:post_text].first
       else
         flash[:notice] = "Shout louder"
       end
@@ -21,6 +21,9 @@ class PostsController < ApplicationController
   def show
     @user = current_user
     @posts = Post.where(user_id: @user.id)
+    @friendships = current_user.friendships
+    @inverse_friendships = current_user.inverse_friendships
+    @shouts=Array.new
   end
 
   def edit
@@ -69,9 +72,9 @@ class PostsController < ApplicationController
     if(@faved == nil)
       if @post.update(:favorites => @post.favorites + 1)
         Favorite.create(:user_id => current_user.id, :post_id => @post.id)
-        flash[:notice] = "Glad you liked it"
+        flash[:success] = "Glad you liked it"
       else
-        flash[:notice] = "Unable to favorite"
+        flash[:error] = "Unable to favorite"
       end
     else
       flash[:notice] = "Already favorited"
@@ -84,7 +87,7 @@ class PostsController < ApplicationController
     @reported = Report.where(user_id: current_user.id, post_id: @post.id).first
     if(@reported == nil)
       Report.create(:user_id => current_user.id, :post_id => @post.id)
-      flash[:notice] = "Sorry you're upset. We'll look into it"
+      flash[:error] = "Sorry you're upset. We'll look into it"
     else
       flash[:notice] = "Already reported"
     end
