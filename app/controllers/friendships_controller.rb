@@ -59,7 +59,7 @@ class FriendshipsController < ApplicationController
         @reports = Array.new
         @reported = Report.all
         for report in @reported
-          @reports.push(*Post.find(report.post_id))
+          @reports.push(*Post.where(:id => report.post_id))
         end
         @reports.sort! { |a,b| b.updated_at <=> a.updated_at }
 
