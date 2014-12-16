@@ -1,56 +1,81 @@
 class AdminController < ApplicationController
-  before_filter :set_view_models
-
-  def index
-  end
-
-  def new
-
-  end
-
-  def create
-    @new_admin = User.new({:first_name=> params[:user][:first_name], :last_name=>params[:user][:last_name], :email=>params[:user][:email], :password=>params[:user][:password], :admin=>"true"})
-
-    if @new_admin.save
-      flash[:success] = "Admin created! Welcome to the shout team!!"
-      redirect_to :controller => :admin, :action => :index
-    else
-      @errors = @new_admin.errors
-
-        flash[:notice] = "Unable to create admin. The form has errors."
-
-      redirect_to :controller => :admin, :action => :new
+  def show
+    if current_user == nil || !current_user.is_admin
+      redirect_to :controller => :friendships, :action => :show
     end
+    @admins = User.where(:is_admin => true)
+    @users = User.where(:is_admin => false)
   end
 
-  def lock_unlock_account
+  def promote
+    if !current_user.is_admin
+      redirect_to :controller => :friendships, :action => :show
+    end
+    @user =  User.find(params[:user])
+    if @user == nil
+      flash[:error] = "Unable to promote user to admin."
+    else
+      @user.update_attribute(:is_admin, true)
+      if @user.save
+        flash[:success] = "Promoted user to admin."
+      else
+        flash[:error] = "Unable to promote user to admin."
+      end
+    end
+    redirect_to :controller => :admin, :action => :show
+  end
 
+  def demote
+    if !current_user.is_admin
+      redirect_to :controller => :friendships, :action => :show
+    end
+    @user =  User.find(params[:admin])
+    if @user == nil
+      flash[:error] = "Unable to demote admin to user."
+    else
+      @user.update_attribute(:is_admin, false)
+      if @user.save
+        flash[:success] = "Demoted admin to user."
+      else
+        flash[:error] = "Unable to demote amdin to user."
+      end
+    end
+    redirect_to :controller => :admin, :action => :show
   end
 
   def lock
-
-  end
-
-
-  def lock
-    @lock_user = User.find(User.deobfuscate_id(params[:user][:id]))
-
-    @value = @lock_user.locked
-    if @lock_user.locked
-      @lock_user.update(:locked => "true")
-    else
-      @lock_user.update(:locked => "false")
+    if !current_user.is_admin
+      redirect_to :controller => :friendships, :action => :show
     end
-    @lock_user.save!
-    redirect_to :action => "lock_unlock_account"
+    @user =  User.find(params[:user])
+    if @user == nil
+      flash[:error] = "Unable to lock user."
+    else
+      @user.update_attribute(:locked, true)
+      if @user.save
+        flash[:success] = "Locked user."
+      else
+        flash[:error] = "Unable to lock user."
+      end
+    end
+    redirect_to :controller => :admin, :action => :show
   end
 
-
-  protected
-
-  def set_view_models
-    @current_user = current_user
-    @new_user = User.new
-    @users = User.all
+  def unlock
+    if !current_user.is_admin
+      redirect_to :controller => :friendships, :action => :show
+    end
+    @user =  User.find(params[:user])
+    if @user == nil
+      flash[:error] = "Unable to unlock user."
+    else
+      @user.update_attribute(:locked, false)
+      if @user.save
+        flash[:success] = "Unlocked user."
+      else
+        flash[:error] = "Unable to unlock user."
+      end
+    end
+    redirect_to :controller => :admin, :action => :show
   end
 end

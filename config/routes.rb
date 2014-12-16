@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
-  get 'admin/index'
-  get 'admin/lock_unlock_account'
-  post 'admin/lock_unlock_account' => 'admin#lock'
 
-  get 'admin/new' => 'admin#new'
-  post 'admin/new' => 'admin#create'
 
   root 'home#index'
 
@@ -26,6 +21,12 @@ Rails.application.routes.draw do
   get 'friendships/tytytyty' => 'friendships#disapprove'
   get 'friendships/ervopmhg' => 'friendships#followers'
   get 'friendships/aaaaaaaa' => 'friendships#followed_by'
+
+  get 'admin/plokijuh' => 'admin#show'
+  get 'admin/cmkioplk' => 'admin#promote'
+  get 'admin/aswdrftg' => 'admin#demote'
+  get 'admin/chnvjuio' => 'admin#lock'
+  get 'admin/azsxdcfv' => 'admin#unlock'
 
 
   devise_for :users, :controllers => { registrations: 'registrations' }

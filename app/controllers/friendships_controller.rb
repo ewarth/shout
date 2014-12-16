@@ -24,38 +24,52 @@ class FriendshipsController < ApplicationController
     if current_user == nil
       redirect_to root_url
     end
-    @friendships = current_user.friendships
-    @inverse_friendships = current_user.inverse_friendships
-    @shouts = Array.new
-    @my_shouts = Post.where(:user_id => current_user.id)
-    if @my_shouts != nil && @my_shouts.length != 0
-      @shouts.push(*@my_shouts)
-    end
-    for friendship in @friendships
-      if friendship.approved
-        @temp_shouts = Post.where(:user_id => friendship.friend.id, :deactivated => false)
+
+    if current_user.locked
+      flash[:error] = "Your account is locked."
+      sign_out_and_redirect(current_user)
+    else
+      @friendships = current_user.friendships
+      @inverse_friendships = current_user.inverse_friendships
+      @shouts = Array.new
+      @ids = Array.new
+      @ids.push(current_user.id)
+      for friendship in @friendships
+        if friendship.approved
+          @ids.push(friendship.friend.id)
+        end
+      end
+      @admins = User.where(:is_admin => true)
+      for admin in @admins
+        if(!@ids.include?(admin.id))
+          @ids.push(admin.id)
+        end
+      end
+
+      for id in @ids
+        @temp_shouts = Post.where(:user_id => id, :deactivated => false)
         if @temp_shouts != nil && @temp_shouts.length != 0
           @shouts.push(*@temp_shouts)
         end
       end
+
+      @shouts.sort! { |a,b| b.updated_at <=> a.updated_at }
     end
-    @shouts.sort! { |a,b| b.updated_at <=> a.updated_at }
   end
 
   def approve
     @friendship = Friendship.find(params[:friend_id])
     if @freindship == nil
       flash[:error] = "Unable to approve follower."
-      redirect_to root_url
-    end
-    @friendship.update_attribute(:approved, true)
-    if @friendship.save
-      flash[:success] = "Approved follower."
-      redirect_to root_url
     else
-      flash[:error] = "Unable to approve follower."
-      redirect_to root_url
+      @friendship.update_attribute(:approved, true)
+      if @friendship.save
+        flash[:success] = "Approved follower."
+      else
+        flash[:error] = "Unable to approve follower."
+      end
     end
+    redirect_to root_url
   end
 
   def disapprove
@@ -64,7 +78,7 @@ class FriendshipsController < ApplicationController
     flash[:notice] = "Removed friendship."
     redirect_to root_url
   end
-  
+
   def destroy
     @friendship = Friendship.find(params[:friend_id])
     @friendship.destroy
