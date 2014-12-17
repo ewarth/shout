@@ -103,7 +103,7 @@ class FriendshipsController < ApplicationController
     @inverse_friendships = current_user.inverse_friendships
     for friendship in @friendships
       if friendship.approved
-        @temp_shouts = Post.where(:user_id => friendship.friend.id, :deactivated => false)
+        @temp_shouts = Post.where(:user_id => friendship.friend_id, :deactivated => false)
         if @temp_shouts != nil && @temp_shouts.length != 0
           @shouts.push(*@temp_shouts)
         end
