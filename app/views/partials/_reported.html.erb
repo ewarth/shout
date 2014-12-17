@@ -10,7 +10,9 @@
             <small class="text-muted pull-right">
               <i class="fa fa-clock-o fa-fw"></i> <%=h time_ago_in_words(report.updated_at) %></small>
             <% if !@shoutter.locked %>
-                <%= link_to "Lock", :controller => :admin, :action => :lock , :user => @shoutter %>
+                <%= link_to raw("<i class=\"fa fa-lock\"></i>Lock"), :controller => :admin, :action => :lock , :user => @shoutter %>
+            <% else %>
+                User has been locked
             <% end %>
             <br/>
             <%=h report.post_text %>

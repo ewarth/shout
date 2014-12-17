@@ -9,9 +9,9 @@
               <strong><%=h admin.first_name%> <%=h admin.last_name%></strong>
               <%= link_to "Demote", :controller => :admin, :action => :demote , :admin => admin %> |
               <% if admin.locked %>admin
-                  <%= link_to "Unlock", :controller => :admin, :action => :unlock , :user => admin %>
+                  <%= link_to raw("<i class=\"fa fa-unlock\"></i>Unlock"), :controller => :admin, :action => :unlock , :user => admin %>
               <% else %>
-                  <%= link_to "Lock", :controller => :admin, :action => :lock , :user => admin %>
+                  <%= link_to raw("<i class=\"fa fa-lock\"></i>Lock"), :controller => :admin, :action => :lock , :user => admin %>
               <% end %>
             </li>
         <% end %>
@@ -25,9 +25,9 @@
               <strong><%=h user.first_name%> <%=h user.last_name%></strong>
               <%= link_to "Promote", :controller => :admin, :action => :promote , :user => user %> |
               <% if user.locked %>
-                  <%= link_to "Unlock", :controller => :admin, :action => :unlock , :user => user %>
+                  <%= link_to raw("<i class=\"fa fa-unlock\"></i>Unlock"), :controller => :admin, :action => :unlock , :user => user %>
               <% else %>
-                  <%= link_to "Lock", :controller => :admin, :action => :lock , :user => user %>
+                  <%= link_to raw("<i class=\"fa fa-lock\"></i>Lock"), :controller => :admin, :action => :lock , :user => user %>
               <% end %>
             </li>
         <% end %>

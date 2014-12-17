@@ -1,5 +1,5 @@
 <h2>Edit
-  <% if (@current_user.admin) %>
+  <% if (@current_user.is_admin) %>
       Admin
   <% else %>
       User
@@ -27,7 +27,7 @@
       <%= f.label :last_name %><br />
       <%= f.text_field :last_name%>
     </div>
-    <% if (!@current_user.admin) %>
+    <% if (!@current_user.is_admin) %>
         <div class="field">
           <%= f.label :password %> <br />
           <%= f.password_field :password, autocomplete: "off" %>

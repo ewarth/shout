@@ -36,7 +36,7 @@ class FriendshipsController < ApplicationController
       @ids.push(current_user.id)
       for friendship in @friendships
         if friendship.approved
-          @ids.push(friendship.friend.id)
+          @ids.push(friendship.friend_id)
         end
       end
       @admins = User.where(:is_admin => true)
